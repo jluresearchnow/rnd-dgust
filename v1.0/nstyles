@@ -1,0 +1,18 @@
+#D-GUST v1.0
+*button.continue:
+#continue button
+
+<input type="submit" name="continue" id="btn_continue" class="button continue" value="@(continue) ${'>' if list=='2' else ''}" onClick="var i = document.createElement('input');i.setAttribute('type', 'hidden');i.setAttribute('value', '1');i.setAttribute('name', '__has_javascript');document.forms.primary.appendChild(i);"/>
+
+*button.goback:
+#back button
+@if gv.survey.root.state.testing and jumpto=="all"
+  <script>if(sessionStorage.jumptoSelect && $ ("#question_rnjumpto").length==0){$ ("form#primary").append($ ("<div style='position:fixed;left:0px;bottom:0px;z-index:100'/>").append(sessionStorage.jumptoSelect))}</script>
+@endif
+@if gv.survey.root.state.testing and settings=="showqid"
+   <script>$ ("div.question, div.comment").each(function(){$ (this).prepend("<div style='display: inline-block;background: #A4DDF4 url(/i/bg_qa_info_list.png) bottom left repeat-x;border: 1px solid #D5D4D4;font-weight: bold;color: #333;margin: 0;min-height: 17px;padding: 2px 4px;text-shadow: 0 1px 0 #fff;vertical-align: text-bottom;font-size: 12px;border-radius: 4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;margin-bottom: 5px;'>Question: " + this.id.substr(this.id.indexOf("_")+1) + "</div>")})</script> 
+@endif
+<input type="button" id="btn_goback" class="button back" onClick="Survey.postControl('back2')" value="${'<' if list=='2' else ''} @(back)" />
+*survey.respview.footer:
+#footer
+<div class="footer">${rnGetThemeFooter(src,decLang)}</div>
